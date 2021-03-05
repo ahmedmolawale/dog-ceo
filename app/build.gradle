@@ -1,0 +1,101 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'jacoco'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion AndroidSdk.compileSdk
+    buildToolsVersion AndroidSdk.buildTools
+
+    defaultConfig {
+        applicationId AndroidClient.appId
+        minSdkVersion AndroidSdk.minSdk
+        targetSdkVersion AndroidSdk.targetSdk
+        versionCode AndroidClient.versionCode
+        versionName AndroidClient.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            //testCoverageEnabled true //get coverage report for instrumentation tests
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+}
+
+dependencies {
+
+    //core
+    implementation Libraries.kotlinStd
+    implementation Libraries.androidCore
+    implementation Libraries.fragmentKTX
+    implementation Libraries.appCompat
+    implementation Libraries.materialDesign
+    implementation Libraries.constraintLayout
+
+
+    //hilt for DI
+    implementation Libraries.hilt
+    kapt Libraries.hiltCompiler
+
+
+    //retrofit
+    implementation Libraries.retrofit
+    implementation Libraries.moshiConverter
+    implementation Libraries.okHTTPLogger
+
+    //image loading
+    implementation Libraries.coil
+
+
+    //shimmer
+    implementation Libraries.shimmer
+
+    //coroutines
+    implementation Libraries.coroutinesAndroid
+
+
+    testImplementation TestLibraries.testCore
+    testImplementation TestLibraries.archCore
+    testImplementation TestLibraries.junit
+    testImplementation TestLibraries.androidX
+    testImplementation TestLibraries.truth
+    testImplementation TestLibraries.coroutines
+    testImplementation TestLibraries.mockk
+    testImplementation TestLibraries.testRunner
+    testImplementation TestLibraries.robolectric
+
+    androidTestImplementation TestLibraries.archCore
+    androidTestImplementation TestLibraries.junit
+    androidTestImplementation TestLibraries.androidX
+    androidTestImplementation TestLibraries.truth
+    androidTestImplementation TestLibraries.coroutines
+    androidTestImplementation TestLibraries.testRunner
+    androidTestImplementation TestLibraries.hilt
+    kaptAndroidTest TestLibraries.hiltKapt
+}
+
+apply from: "../ktlint.gradle"
