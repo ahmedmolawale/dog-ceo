@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Dog Ceo</string>
     <string name="search_hint">Search</string>
-    <string name="no_dog_breeds">No characters available</string>
+    <string name="no_dog_breeds">No dog breeds available</string>
+    <string name="no_dog_breed_images">Breed images not available</string>
     <string name="show_sub_breed">Show Sub-breeds</string>
     <string name="hide_sub_breed">Hide Sub-breeds</string>
+    <string name="header">%s-%s</string>
 </resources>

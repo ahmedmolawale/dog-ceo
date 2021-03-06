@@ -3,6 +3,7 @@ package com.ahmedmolawale.dogceo.features.dogs.presentation
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmedmolawale.dogceo.R
@@ -15,4 +16,10 @@ fun RecyclerView.initRecyclerViewWithLineDecoration(context: Context) {
     }
     layoutManager = linearLayoutManager
     addItemDecoration(itemDecoration)
+}
+
+@SuppressLint("UseCompatLoadingForDrawables")
+fun RecyclerView.initRecyclerViewUsingGridLayout(context: Context, span: Int) {
+    val gridLayoutManager = GridLayoutManager(context, span)
+    layoutManager = gridLayoutManager
 }
