@@ -3,7 +3,6 @@ package com.ahmedmolawale.dogceo.features.dogs.presentation.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ahmedmolawale.dogceo.R
-import com.ahmedmolawale.dogceo.features.dogs.presentation.view.DogBreedFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

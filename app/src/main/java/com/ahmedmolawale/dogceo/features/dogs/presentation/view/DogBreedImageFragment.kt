@@ -47,31 +47,34 @@ class DogBreedImageFragment : Fragment() {
 
         breedName?.let {
             if (subBreedName != null) {
-                binding.breedName.text = breedName.plus("-").plus(subBreedName)
+                binding.header.headerTitle.text = breedName.plus("-").plus(subBreedName)
                     .capitalize(Locale.getDefault())
                 dogBreedImagesViewModel.fetchDogSubBreedImages(it, subBreedName)
             } else {
-                binding.breedName.text = breedName.capitalize(Locale.getDefault())
+                binding.header.headerTitle.text = breedName.capitalize(Locale.getDefault())
                 dogBreedImagesViewModel.fetchDogBreedImages(it)
             }
         }
 
-        dogBreedImagesViewModel.dogBreedImagesState.observe(viewLifecycleOwner, {
-            when (it) {
-                is DogBreedImagesState.DogBreedImages -> {
-                    setupListAdapter(it.dogBreedImages)
-                }
-                is DogBreedImagesState.NoDogBreedImages -> {
-                    showNoDogBreedImages()
-                }
-                is DogBreedImagesState.Error -> {
-                    showError(it.errorMessage)
-                }
-                is DogBreedImagesState.Loading -> {
-                    showLoading()
+        dogBreedImagesViewModel.dogBreedImagesState.observe(
+            viewLifecycleOwner,
+            {
+                when (it) {
+                    is DogBreedImagesState.DogBreedImages -> {
+                        setupListAdapter(it.dogBreedImages)
+                    }
+                    is DogBreedImagesState.NoDogBreedImages -> {
+                        showNoDogBreedImages()
+                    }
+                    is DogBreedImagesState.Error -> {
+                        showError(it.errorMessage)
+                    }
+                    is DogBreedImagesState.Loading -> {
+                        showLoading()
+                    }
                 }
             }
-        })
+        )
     }
 
     private fun setupListAdapter(dogBreedImages: List<DogBreedImagePresentation>) {

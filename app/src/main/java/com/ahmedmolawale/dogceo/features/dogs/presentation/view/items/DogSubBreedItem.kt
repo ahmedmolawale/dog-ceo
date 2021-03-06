@@ -25,5 +25,4 @@ class DogSubBreedItem(
     override fun initializeViewBinding(view: View): DogSubBreedItemBinding {
         return DogSubBreedItemBinding.bind(view)
     }
-
 }

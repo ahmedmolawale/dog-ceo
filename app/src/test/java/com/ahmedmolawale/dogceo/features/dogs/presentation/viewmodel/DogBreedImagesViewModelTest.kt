@@ -71,7 +71,6 @@ class DogBreedImagesViewModelTest : UnitTest() {
         assertThat((res as DogBreedImagesState.Error).errorMessage).isNotEmpty()
     }
 
-
     @Test
     fun `fetchDogBreedImages should show data state when dog breed images is retrieved`() {
         every { getDogBreedImages(any(), breedName, any()) }.answers {
@@ -106,7 +105,6 @@ class DogBreedImagesViewModelTest : UnitTest() {
         assertThat((res as DogBreedImagesState.Error).errorMessage).isNotEmpty()
     }
 
-
     @Test
     fun `fetchDogSubBreedImages should show data state when dog subbreed images is retrieved`() {
         every { getDogSubBreedImages(any(), dogSubBreedParams, any()) }.answers {
@@ -118,5 +116,4 @@ class DogBreedImagesViewModelTest : UnitTest() {
         assertThat((res as DogBreedImagesState.DogBreedImages).dogBreedImages).isNotEmpty()
         assertThat(res.dogBreedImages).isEqualTo(dogBreedImages.map { it.toPresentation() })
     }
-
 }

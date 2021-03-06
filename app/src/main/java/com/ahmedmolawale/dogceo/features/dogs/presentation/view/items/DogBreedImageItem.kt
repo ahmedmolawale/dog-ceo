@@ -25,5 +25,4 @@ class DogBreedImageItem(
     override fun initializeViewBinding(view: View): DogBreedImageItemBinding {
         return DogBreedImageItemBinding.bind(view)
     }
-
 }

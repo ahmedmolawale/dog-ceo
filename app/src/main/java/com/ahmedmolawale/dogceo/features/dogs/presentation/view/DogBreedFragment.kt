@@ -46,55 +46,62 @@ class DogBreedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dogBreedViewModel.fetchDogBreeds()
         setupView()
-        dogBreedViewModel.dogBreedState.observe(viewLifecycleOwner, {
-            when (it) {
-                is DogBreedState.DogBreeds -> {
-                    setupListAdapter(it.dogBreeds)
-                }
-                is DogBreedState.NoDogBreeds -> {
-                    showNoDogBreeds()
-                }
-                is DogBreedState.Error -> {
-                    showError(it.errorMessage)
-                }
-                is DogBreedState.Loading -> {
-                    showLoading()
+        dogBreedViewModel.fetchDogBreeds()
+        dogBreedViewModel.dogBreedState.observe(
+            viewLifecycleOwner,
+            {
+                when (it) {
+                    is DogBreedState.DogBreeds -> {
+                        setupListAdapter(it.dogBreeds)
+                    }
+                    is DogBreedState.NoDogBreeds -> {
+                        showNoDogBreeds()
+                    }
+                    is DogBreedState.Error -> {
+                        showError(it.errorMessage)
+                    }
+                    is DogBreedState.Loading -> {
+                        showLoading()
+                    }
                 }
             }
-        })
+        )
     }
 
     private fun setupView() {
+        context?.let {
+            binding.dogBreedRecyclerView.initRecyclerViewWithLineDecoration(it)
+        }
+        binding.dogBreedRecyclerView.adapter = adapter
+        binding.header.headerTitle.text = context?.getText(R.string.dog_breeds_title)
         binding.search.addTextChangedListener {
-            if (it != null && it.isNotBlank()) {
-                //characterSearchViewModel.searchCharacters(it.toString())
+            if (it != null) {
+                dogBreedViewModel.searchDogBreeds(it.toString())
             }
         }
     }
 
     private fun setupListAdapter(dogBreeds: List<DogBreedPresentation>) {
-        context?.let {
-            binding.dogBreedRecyclerView.initRecyclerViewWithLineDecoration(it)
-        }
         binding.apply {
             dogBreedRecyclerView.visibility = VISIBLE
             shimmerViewContainer.visibility = GONE
             errorOnDogBreeds.visibility = GONE
             noDogBreed.visibility = GONE
         }
+        adapter.clear()
         adapter.addAll(
             dogBreeds.map {
                 val dogBreedGroup =
                     ExpandableGroup(DogBreedItem(it) { dogBreed -> onDogBreedClick(dogBreed) })
-                dogBreedGroup.addAll(it.subBreeds.map { s ->
-                    DogSubBreedItem(s) { dogBreed -> onDogSubBreedClick(dogBreed) }
-                })
+                dogBreedGroup.addAll(
+                    it.subBreeds.map { s ->
+                        DogSubBreedItem(s) { dogBreed -> onDogSubBreedClick(dogBreed) }
+                    }
+                )
                 dogBreedGroup
             }
         )
-        binding.dogBreedRecyclerView.adapter = adapter
     }
 
     private fun onDogBreedClick(dogBreedPresentation: DogBreedPresentation) {
@@ -124,6 +131,7 @@ class DogBreedFragment : Fragment() {
             errorOnDogBreeds.visibility = VISIBLE
             errorOnDogBreeds.text = errorMessage
             noDogBreed.visibility = GONE
+            dogBreedRecyclerView.visibility = GONE
         }
     }
 
@@ -132,12 +140,14 @@ class DogBreedFragment : Fragment() {
             shimmerViewContainer.visibility = VISIBLE
             errorOnDogBreeds.visibility = GONE
             noDogBreed.visibility = GONE
+            dogBreedRecyclerView.visibility = GONE
         }
     }
 
     private fun showNoDogBreeds() {
         binding.apply {
             shimmerViewContainer.visibility = GONE
+            dogBreedRecyclerView.visibility = GONE
             errorOnDogBreeds.visibility = GONE
             noDogBreed.visibility = VISIBLE
         }

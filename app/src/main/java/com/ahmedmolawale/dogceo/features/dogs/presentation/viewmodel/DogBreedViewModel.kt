@@ -1,6 +1,5 @@
 package com.ahmedmolawale.dogceo.features.dogs.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +8,11 @@ import com.ahmedmolawale.dogceo.core.functional.Result
 import com.ahmedmolawale.dogceo.features.dogs.domain.model.DogBreed
 import com.ahmedmolawale.dogceo.features.dogs.domain.usecases.GetDogBreedsUseCase
 import com.ahmedmolawale.dogceo.features.dogs.presentation.mapper.toPresentation
+import com.ahmedmolawale.dogceo.features.dogs.presentation.model.DogBreedPresentation
 import com.ahmedmolawale.dogceo.features.dogs.presentation.model.state.DogBreedState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,6 +22,7 @@ class DogBreedViewModel @Inject constructor(
 
     private val job = Job()
 
+    var dogBreedsPresentation = listOf<DogBreedPresentation>()
     private val _dogBreedState = MutableLiveData<DogBreedState>()
     val dogBreedState: LiveData<DogBreedState>
         get() = _dogBreedState
@@ -48,7 +50,27 @@ class DogBreedViewModel @Inject constructor(
         if (dogBreeds.isEmpty()) {
             _dogBreedState.value = DogBreedState.NoDogBreeds
         } else {
-            _dogBreedState.value = DogBreedState.DogBreeds(dogBreeds.map { it.toPresentation() })
+            dogBreedsPresentation = dogBreeds.map { it.toPresentation() }
+            _dogBreedState.value = DogBreedState.DogBreeds(dogBreedsPresentation)
+        }
+    }
+
+    fun searchDogBreeds(query: String) {
+        _dogBreedState.value = DogBreedState.Loading
+        if (query.isBlank()) {
+            _dogBreedState.value = DogBreedState.DogBreeds(dogBreedsPresentation)
+        } else {
+            val dogBreedsFilter = dogBreedsPresentation.filter {
+                it.breedName.toLowerCase(Locale.getDefault()).contains(
+                    query.trim().toLowerCase(
+                        Locale.getDefault()
+                    )
+                )
+            }
+            if (dogBreedsFilter.isEmpty())
+                _dogBreedState.value = DogBreedState.NoDogBreeds
+            else
+                _dogBreedState.value = DogBreedState.DogBreeds(dogBreedsFilter)
         }
     }
 

@@ -6,7 +6,6 @@ data class DogBreedPresentation(
     val subBreeds: List<DogSubBreedPresentation>
 )
 
-
 data class DogSubBreedPresentation(
     val breedNameInitial: String,
     val parentBreedName: String,

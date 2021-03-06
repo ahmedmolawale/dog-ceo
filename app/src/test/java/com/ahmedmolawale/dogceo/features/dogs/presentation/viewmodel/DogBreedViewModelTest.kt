@@ -8,6 +8,7 @@ import com.ahmedmolawale.dogceo.features.dogs.domain.model.DogBreed
 import com.ahmedmolawale.dogceo.features.dogs.domain.model.DogSubBreed
 import com.ahmedmolawale.dogceo.features.dogs.domain.usecases.GetDogBreedsUseCase
 import com.ahmedmolawale.dogceo.features.dogs.presentation.mapper.toPresentation
+import com.ahmedmolawale.dogceo.features.dogs.presentation.model.DogBreedPresentation
 import com.ahmedmolawale.dogceo.features.dogs.presentation.model.state.DogBreedState
 import com.ahmedmolawale.dogceo.getOrAwaitValueTest
 import com.google.common.truth.Truth.assertThat
@@ -27,6 +28,7 @@ class DogBreedViewModelTest : UnitTest() {
 
     private lateinit var dogBreedViewModel: DogBreedViewModel
     private lateinit var dogBreeds: List<DogBreed>
+    private lateinit var searchQuery: String
 
     @Before
     fun setup() {
@@ -34,6 +36,11 @@ class DogBreedViewModelTest : UnitTest() {
             DogBreed(
                 name = "hound",
                 subBreed = listOf(DogSubBreed("afd"))
+
+            ),
+            DogBreed(
+                name = "african",
+                subBreed = listOf()
 
             )
         )
@@ -75,5 +82,53 @@ class DogBreedViewModelTest : UnitTest() {
         val res = dogBreedViewModel.dogBreedState.getOrAwaitValueTest()
         assertThat(res).isInstanceOf(DogBreedState.Error::class.java)
         assertThat((res as DogBreedState.Error).errorMessage).isNotEmpty()
+    }
+
+    @Test
+    fun `searchDogBreeds should show all data when query is empty`() {
+        searchQuery = ""
+        every { getDogBreedsUseCase(any(), any(), any()) }.answers {
+            thirdArg<(Result<List<DogBreed>>) -> Unit>()(Result.Success(dogBreeds))
+        }
+        dogBreedViewModel.fetchDogBreeds()
+        dogBreedViewModel.searchDogBreeds(searchQuery)
+        val res = dogBreedViewModel.dogBreedState.getOrAwaitValueTest()
+        assertThat(res).isInstanceOf(DogBreedState.DogBreeds::class.java)
+        assertThat((res as DogBreedState.DogBreeds).dogBreeds).isNotEmpty()
+        assertThat((res).dogBreeds).isEqualTo(dogBreedViewModel.dogBreedsPresentation)
+    }
+
+    @Test
+    fun `searchDogBreeds should show empty state when query does not match`() {
+        searchQuery = "qw"
+        every { getDogBreedsUseCase(any(), any(), any()) }.answers {
+            thirdArg<(Result<List<DogBreed>>) -> Unit>()(Result.Success(dogBreeds))
+        }
+        dogBreedViewModel.fetchDogBreeds()
+        dogBreedViewModel.searchDogBreeds(searchQuery)
+        val res = dogBreedViewModel.dogBreedState.getOrAwaitValueTest()
+        assertThat(res).isInstanceOf(DogBreedState.NoDogBreeds::class.java)
+    }
+
+    @Test
+    fun `searchDogBreeds should show filtered data`() {
+        searchQuery = "a"
+        every { getDogBreedsUseCase(any(), any(), any()) }.answers {
+            thirdArg<(Result<List<DogBreed>>) -> Unit>()(Result.Success(dogBreeds))
+        }
+        dogBreedViewModel.fetchDogBreeds()
+        dogBreedViewModel.searchDogBreeds(searchQuery)
+
+        val expectedFiltered = listOf(
+            DogBreedPresentation(
+                breedNameInitial = "A",
+                breedName = "African",
+                subBreeds = listOf()
+            )
+        )
+        val res = dogBreedViewModel.dogBreedState.getOrAwaitValueTest()
+        assertThat(res).isInstanceOf(DogBreedState.DogBreeds::class.java)
+        assertThat((res as DogBreedState.DogBreeds).dogBreeds).isNotEmpty()
+        assertThat((res).dogBreeds).isEqualTo(expectedFiltered)
     }
 }
