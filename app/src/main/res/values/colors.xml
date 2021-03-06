@@ -15,4 +15,5 @@
     <color name="colorAccent">#252525</color>
     <color name="background">#121212</color>
     <color name="transparent">#00000000</color>
+    <color name="blue_color">#4784F4</color>
 </resources>

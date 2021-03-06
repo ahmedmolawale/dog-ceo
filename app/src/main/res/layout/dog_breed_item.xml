@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="dogbreed"
+            type="com.ahmedmolawale.dogceo.features.dogs.presentation.model.DogBreedPresentation" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <RelativeLayout
+            android:id="@+id/dog_breed_initials_layout"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/circular_shimmer_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/dog_breed_initials"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/circularstdbold"
+                android:text="@{dogbreed.breedNameInitial}"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:text="A" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/circularstdmedium"
+            android:text="@{dogbreed.breedName}"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/show_breed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/dog_breed_initials_layout"
+            app:layout_constraintTop_toTopOf="@id/dog_breed_initials_layout"
+            tools:text="Olawale A." />
+
+        <TextView
+            android:id="@+id/show_breed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/circularstdbook"
+            android:textAllCaps="false"
+            android:textColor="@color/blue_color"
+            android:textSize="14sp"
+            android:text="@string/show_sub_breed"
+            android:visibility="@{dogbreed.subBreeds.empty ? View.GONE : View.VISIBLE, default=gone}"
+            app:layout_constraintBottom_toBottomOf="@id/dog_breed_initials_layout"
+            app:layout_constraintStart_toEndOf="@id/dog_breed_initials_layout"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            tools:text="Show sub breed" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

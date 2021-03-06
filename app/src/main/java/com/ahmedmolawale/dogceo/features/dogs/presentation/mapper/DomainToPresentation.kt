@@ -11,7 +11,9 @@ fun DogBreed.toPresentation(): DogBreedPresentation {
     val subBreedsPresentation = this.subBreed.map {
         DogSubBreedPresentation(
             breedNameInitial = it.name[0]
-                .toUpperCase().toString(), breedName = it.name.capitalize(Locale.getDefault())
+                .toUpperCase().toString(),
+            parentBreedName = this.name.capitalize(Locale.getDefault()),
+            breedName = it.name.capitalize(Locale.getDefault())
         )
     }
     return DogBreedPresentation(

@@ -29,7 +29,7 @@ class DomainToPresentationTest : UnitTest() {
             subBreed = listOf(DogSubBreed("afs"))
         )
         val expected = DogBreedPresentation(breedNameInitial = "H", breedName = "Hound", subBreeds = listOf(
-            DogSubBreedPresentation(breedName = "Afs", breedNameInitial = "A")
+            DogSubBreedPresentation(breedName = "Afs", breedNameInitial = "A", parentBreedName = "Hound")
         ))
         assertThat(dogBreed.toPresentation()).isEqualTo(expected)
     }

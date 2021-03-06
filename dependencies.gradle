@@ -44,23 +44,26 @@ ext {
             moshiConverter  : "2.9.0",
             coroutines      : "1.4.2",
             coil            : "1.1.1",
+            groupie         : "2.9.0"
     ]
 
     Libraries = [
-            kotlinStd        : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
-            hilt             : "com.google.dagger:hilt-android:$hilt_version",
-            hiltCompiler     : "com.google.dagger:hilt-android-compiler:$hilt_version",
-            appCompat        : "androidx.appcompat:appcompat:$LibrariesVersion.appCompat",
-            fragmentKTX      : "androidx.fragment:fragment-ktx:$LibrariesVersion.fragmentKtx",
-            androidCore      : "androidx.core:core-ktx:$LibrariesVersion.androidCore",
-            materialDesign   : "com.google.android.material:material:$LibrariesVersion.materialDesign",
-            constraintLayout : "androidx.constraintlayout:constraintlayout:$LibrariesVersion.constraintLayout",
-            retrofit         : "com.squareup.retrofit2:retrofit:$LibrariesVersion.retrofit",
-            moshiConverter   : "com.squareup.retrofit2:converter-moshi:$LibrariesVersion.moshiConverter",
-            okHTTPLogger     : "com.squareup.okhttp3:logging-interceptor:$LibrariesVersion.okHTTPLogger",
-            shimmer          : "com.facebook.shimmer:shimmer:$LibrariesVersion.shimmer",
-            coroutinesAndroid: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$LibrariesVersion.coroutines",
-            coil             : "io.coil-kt:coil:$LibrariesVersion.coil"
+            kotlinStd         : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            hilt              : "com.google.dagger:hilt-android:$hilt_version",
+            hiltCompiler      : "com.google.dagger:hilt-android-compiler:$hilt_version",
+            appCompat         : "androidx.appcompat:appcompat:$LibrariesVersion.appCompat",
+            fragmentKTX       : "androidx.fragment:fragment-ktx:$LibrariesVersion.fragmentKtx",
+            androidCore       : "androidx.core:core-ktx:$LibrariesVersion.androidCore",
+            materialDesign    : "com.google.android.material:material:$LibrariesVersion.materialDesign",
+            constraintLayout  : "androidx.constraintlayout:constraintlayout:$LibrariesVersion.constraintLayout",
+            retrofit          : "com.squareup.retrofit2:retrofit:$LibrariesVersion.retrofit",
+            moshiConverter    : "com.squareup.retrofit2:converter-moshi:$LibrariesVersion.moshiConverter",
+            okHTTPLogger      : "com.squareup.okhttp3:logging-interceptor:$LibrariesVersion.okHTTPLogger",
+            shimmer           : "com.facebook.shimmer:shimmer:$LibrariesVersion.shimmer",
+            coroutinesAndroid : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$LibrariesVersion.coroutines",
+            coil              : "io.coil-kt:coil:$LibrariesVersion.coil",
+            groupie           : "com.xwray:groupie:$LibrariesVersion.groupie",
+            groupieViewBinding: "com.xwray:groupie-viewbinding:$LibrariesVersion.groupie"
     ]
 
 

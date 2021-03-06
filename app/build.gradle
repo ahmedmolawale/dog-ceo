@@ -70,6 +70,10 @@ dependencies {
     //image loading
     implementation Libraries.coil
 
+    //groupie for complex recycler view
+    implementation Libraries.groupie
+    implementation Libraries.groupieViewBinding
+
 
     //shimmer
     implementation Libraries.shimmer

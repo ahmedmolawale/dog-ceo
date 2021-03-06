@@ -9,5 +9,6 @@ data class DogBreedPresentation(
 
 data class DogSubBreedPresentation(
     val breedNameInitial: String,
+    val parentBreedName: String,
     val breedName: String
 )
