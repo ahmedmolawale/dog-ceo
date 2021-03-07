@@ -94,6 +94,7 @@ dog breeds. The ```GetDogBreedsUseCase``` via a repository interface requests th
 The data layer retrieves the data from the API. The user can search for dog breeds via a search input field on this screen.
 As the user types, the fragment reaches out to the ViewModel to obtain the dog breeds that match the
 input string.
+
 Furthermore, clicking on any dog breed/sub-breed in the list triggers the ```DogBreedImageFragment```.
 The breed name/sub-breed name are passed to the ```DogBreedImageFragment```. This screen reaches out to the ```DogBreedImagesViewModel```
 to retrieve the images of the breed/sub-breed.
