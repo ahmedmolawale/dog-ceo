@@ -82,6 +82,7 @@ to obtain data from the network.
 - [Robolectric](http://robolectric.org/) - Unit test on android framework.
 - [Espresso](https://developer.android.com/training/testing/espresso) - Used for writing Android UI tests.
 - [Ktlint](https://github.com/pinterest/ktlint) - A Kotlin linter with built-in formatter.
+- [Coil](https://github.com/coil-kt/coil) - Image loading for Android backed by Kotlin Coroutines.
 
 ## Solution
 
