@@ -18,7 +18,7 @@ android {
         versionCode AndroidClient.versionCode
         versionName AndroidClient.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.ahmedmolawale.dogceo.CustomTestRunner"
     }
 
     buildTypes {
@@ -30,7 +30,6 @@ android {
             minifyEnabled false
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
-            //testCoverageEnabled true //get coverage report for instrumentation tests
         }
     }
     compileOptions {
@@ -43,6 +42,9 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
+    }
+    packagingOptions {
+        exclude 'META-INF/*'
     }
 }
 
@@ -99,7 +101,10 @@ dependencies {
     androidTestImplementation TestLibraries.coroutines
     androidTestImplementation TestLibraries.testRunner
     androidTestImplementation TestLibraries.hilt
+    androidTestImplementation TestLibraries.espresso
     kaptAndroidTest TestLibraries.hiltKapt
+
+    debugImplementation TestLibraries.fragment
 }
 
 apply from: "../ktlint.gradle"
