@@ -68,31 +68,35 @@ ext {
 
 
     TestLibrariesVersion = [
-            mockk       : "1.10.5",
-            robolectric : "4.5",
-            runner      : "1.3.0",
-            textCore    : "1.3.0",
-            jUnit       : "4.13.1",
-            androidX    : "1.1.2",
-            truth       : "1.1",
-            androidArch : "2.1.0",
-            fragmentTest: "1.3.0",
-            espresso    : "3.3.0"
+            mockk              : "1.10.5",
+            robolectric        : "4.5",
+            runner             : "1.3.0",
+            textCore           : "1.3.0",
+            jUnit              : "4.13.1",
+            androidX           : "1.1.2",
+            truth              : "1.1",
+            androidArch        : "2.1.0",
+            fragmentTest       : "1.3.0",
+            espresso           : "3.3.0",
+            mockWebServer      : "4.9.0"
     ]
 
     TestLibraries = [
-            testCore   : "androidx.test:core:$TestLibrariesVersion.textCore",
-            junit      : "junit:junit:$TestLibrariesVersion.jUnit",
-            androidX   : "androidx.test.ext:junit:$TestLibrariesVersion.androidX",
-            truth      : "com.google.truth:truth:$TestLibrariesVersion.truth",
-            archCore   : "androidx.arch.core:core-testing:$TestLibrariesVersion.androidArch",
-            coroutines : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$LibrariesVersion.coroutines",
-            mockk      : "io.mockk:mockk:$TestLibrariesVersion.mockk",
-            testRunner : "androidx.test:runner:$TestLibrariesVersion.runner",
-            robolectric: "org.robolectric:robolectric:$TestLibrariesVersion.robolectric",
-            hilt       : "com.google.dagger:hilt-android-testing:$hilt_version",
-            hiltKapt   : "com.google.dagger:hilt-android-compiler:$hilt_version",
-            fragment   : "androidx.fragment:fragment-testing:$TestLibrariesVersion.fragmentTest",
-            espresso   : "androidx.test.espresso:espresso-core:$TestLibrariesVersion.espresso"
+            testCore              : "androidx.test:core:$TestLibrariesVersion.textCore",
+            junit                 : "junit:junit:$TestLibrariesVersion.jUnit",
+            androidX              : "androidx.test.ext:junit:$TestLibrariesVersion.androidX",
+            truth                 : "com.google.truth:truth:$TestLibrariesVersion.truth",
+            archCore              : "androidx.arch.core:core-testing:$TestLibrariesVersion.androidArch",
+            coroutines            : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$LibrariesVersion.coroutines",
+            mockk                 : "io.mockk:mockk:$TestLibrariesVersion.mockk",
+            testRunner            : "androidx.test:runner:$TestLibrariesVersion.runner",
+            robolectric           : "org.robolectric:robolectric:$TestLibrariesVersion.robolectric",
+            hilt                  : "com.google.dagger:hilt-android-testing:$hilt_version",
+            hiltKapt              : "com.google.dagger:hilt-android-compiler:$hilt_version",
+            fragment              : "androidx.fragment:fragment-testing:$TestLibrariesVersion.fragmentTest",
+            espresso              : "androidx.test.espresso:espresso-core:$TestLibrariesVersion.espresso",
+            espressoContrib       : "androidx.test.espresso:espresso-contrib:$TestLibrariesVersion.espresso",
+            espressoIdlingResource: "androidx.test.espresso:espresso-idling-resource:$TestLibrariesVersion.espresso",
+            mockWebServer         : "com.squareup.okhttp3:mockwebserver:$TestLibrariesVersion.mockWebServer"
     ]
 }

@@ -23,15 +23,17 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://dog.ceo/api/")
-            .client(createClient())
+            .baseUrl(url)
+            .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
 
-    private fun createClient(): OkHttpClient {
+    @Provides
+    @Singleton
+    fun createClient(): OkHttpClient {
         val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
             val loggingInterceptor =
@@ -56,4 +58,15 @@ abstract class BindsModule {
 
     @Binds
     abstract fun bindCharacterDetailsRepository(repo: DogBreedImagesRepository): IDogBreedImagesRepository
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkUrlModule {
+
+    @Provides
+    @Singleton
+    fun provideUrl(): String {
+        return "https://dog.ceo/api/"
+    }
 }

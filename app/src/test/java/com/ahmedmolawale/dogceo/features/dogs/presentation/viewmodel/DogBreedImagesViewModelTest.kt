@@ -1,6 +1,9 @@
 package com.ahmedmolawale.dogceo.features.dogs.presentation.viewmodel
 
+import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.ahmedmolawale.dogceo.R
 import com.ahmedmolawale.dogceo.UnitTest
 import com.ahmedmolawale.dogceo.core.exception.Failure
 import com.ahmedmolawale.dogceo.core.functional.Result
@@ -16,7 +19,11 @@ import io.mockk.impl.annotations.MockK
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.P], manifest = Config.NONE)
 class DogBreedImagesViewModelTest : UnitTest() {
 
     @get:Rule
@@ -68,7 +75,7 @@ class DogBreedImagesViewModelTest : UnitTest() {
 
         val res = dogBreedImagesViewModel.dogBreedImagesState.getOrAwaitValueTest()
         assertThat(res).isInstanceOf(DogBreedImagesState.Error::class.java)
-        assertThat((res as DogBreedImagesState.Error).errorMessage).isNotEmpty()
+        assertThat((res as DogBreedImagesState.Error).errorMessageId).isEqualTo(R.string.errorMessage)
     }
 
     @Test
@@ -102,7 +109,7 @@ class DogBreedImagesViewModelTest : UnitTest() {
         dogBreedImagesViewModel.fetchDogSubBreedImages(breedName, subBreedName)
         val res = dogBreedImagesViewModel.dogBreedImagesState.getOrAwaitValueTest()
         assertThat(res).isInstanceOf(DogBreedImagesState.Error::class.java)
-        assertThat((res as DogBreedImagesState.Error).errorMessage).isNotEmpty()
+        assertThat((res as DogBreedImagesState.Error).errorMessageId).isEqualTo(R.string.errorMessage)
     }
 
     @Test

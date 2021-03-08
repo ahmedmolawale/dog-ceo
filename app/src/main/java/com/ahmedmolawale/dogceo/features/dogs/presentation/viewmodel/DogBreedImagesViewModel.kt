@@ -3,8 +3,10 @@ package com.ahmedmolawale.dogceo.features.dogs.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ahmedmolawale.dogceo.R
 import com.ahmedmolawale.dogceo.core.exception.Failure
 import com.ahmedmolawale.dogceo.core.functional.Result
+import com.ahmedmolawale.dogceo.core.idlingresource.EspressoIdlingResource
 import com.ahmedmolawale.dogceo.features.dogs.domain.model.DogBreedImage
 import com.ahmedmolawale.dogceo.features.dogs.domain.usecases.GetDogBreedImagesUseCase
 import com.ahmedmolawale.dogceo.features.dogs.domain.usecases.GetDogSubBreedImagesUseCase
@@ -12,7 +14,6 @@ import com.ahmedmolawale.dogceo.features.dogs.presentation.mapper.toPresentation
 import com.ahmedmolawale.dogceo.features.dogs.presentation.model.state.DogBreedImagesState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,8 +29,10 @@ class DogBreedImagesViewModel @Inject constructor(
         get() = _dogBreedImagesState
 
     fun fetchDogBreedImages(breedName: String) {
+        EspressoIdlingResource.increment()
         _dogBreedImagesState.value = DogBreedImagesState.Loading
         getDogBreedImages(job, breedName) {
+            EspressoIdlingResource.decrement()
             when (it) {
                 is Result.Success -> {
                     handleSuccess(it.data)
@@ -42,11 +45,13 @@ class DogBreedImagesViewModel @Inject constructor(
     }
 
     fun fetchDogSubBreedImages(breedName: String, subBreedName: String) {
+        EspressoIdlingResource.increment()
         _dogBreedImagesState.value = DogBreedImagesState.Loading
         getDogSubBreedImages(
             job,
             GetDogSubBreedImagesUseCase.DogSubBreedParams(breedName, subBreedName)
         ) {
+            EspressoIdlingResource.decrement()
             when (it) {
                 is Result.Success -> {
                     handleSuccess(it.data)
@@ -60,7 +65,7 @@ class DogBreedImagesViewModel @Inject constructor(
 
     @Suppress("UNUSED_PARAMETER")
     private fun handleError(failure: Failure) {
-        _dogBreedImagesState.value = DogBreedImagesState.Error("Unable to fetch data")
+        _dogBreedImagesState.value = DogBreedImagesState.Error(R.string.errorMessage)
     }
 
     private fun handleSuccess(dogBreedImages: List<DogBreedImage>) {

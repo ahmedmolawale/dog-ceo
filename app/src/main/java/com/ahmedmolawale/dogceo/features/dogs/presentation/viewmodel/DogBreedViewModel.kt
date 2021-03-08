@@ -3,8 +3,10 @@ package com.ahmedmolawale.dogceo.features.dogs.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ahmedmolawale.dogceo.R
 import com.ahmedmolawale.dogceo.core.exception.Failure
 import com.ahmedmolawale.dogceo.core.functional.Result
+import com.ahmedmolawale.dogceo.core.idlingresource.EspressoIdlingResource
 import com.ahmedmolawale.dogceo.features.dogs.domain.model.DogBreed
 import com.ahmedmolawale.dogceo.features.dogs.domain.usecases.GetDogBreedsUseCase
 import com.ahmedmolawale.dogceo.features.dogs.presentation.mapper.toPresentation
@@ -28,8 +30,10 @@ class DogBreedViewModel @Inject constructor(
         get() = _dogBreedState
 
     fun fetchDogBreeds() {
+        EspressoIdlingResource.increment()
         _dogBreedState.value = DogBreedState.Loading
         getDogBreeds(job, GetDogBreedsUseCase.None()) {
+            EspressoIdlingResource.decrement()
             when (it) {
                 is Result.Success -> {
                     handleSuccess(it.data)
@@ -43,7 +47,7 @@ class DogBreedViewModel @Inject constructor(
 
     @Suppress("UNUSED_PARAMETER")
     private fun handleError(failure: Failure) {
-        _dogBreedState.value = DogBreedState.Error("Unable to fetch data")
+        _dogBreedState.value = DogBreedState.Error(R.string.errorMessage)
     }
 
     private fun handleSuccess(dogBreeds: List<DogBreed>) {

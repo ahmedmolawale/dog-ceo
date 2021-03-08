@@ -59,7 +59,7 @@ class DogBreedFragment : Fragment() {
                         showNoDogBreeds()
                     }
                     is DogBreedState.Error -> {
-                        showError(it.errorMessage)
+                        showError(it.errorMessageId)
                     }
                     is DogBreedState.Loading -> {
                         showLoading()
@@ -125,11 +125,11 @@ class DogBreedFragment : Fragment() {
             ?.addToBackStack(DogBreedImageFragment.TAG)?.commit()
     }
 
-    private fun showError(errorMessage: String) {
+    private fun showError(errorMessageId: Int) {
         binding.apply {
             shimmerViewContainer.visibility = GONE
             errorOnDogBreeds.visibility = VISIBLE
-            errorOnDogBreeds.text = errorMessage
+            errorOnDogBreeds.text = getText(errorMessageId)
             noDogBreed.visibility = GONE
             dogBreedRecyclerView.visibility = GONE
         }

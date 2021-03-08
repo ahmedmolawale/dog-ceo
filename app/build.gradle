@@ -102,6 +102,9 @@ dependencies {
     androidTestImplementation TestLibraries.testRunner
     androidTestImplementation TestLibraries.hilt
     androidTestImplementation TestLibraries.espresso
+    androidTestImplementation TestLibraries.espressoContrib
+    implementation TestLibraries.espressoIdlingResource
+    androidTestImplementation TestLibraries.mockWebServer
     kaptAndroidTest TestLibraries.hiltKapt
 
     debugImplementation TestLibraries.fragment
